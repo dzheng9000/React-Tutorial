@@ -20,19 +20,6 @@ class Board extends React.Component {
             />;
   }
 
-  handleClick(i) {
-    const squares = this.state.squares.slice(); // create a copy
-    if (calculateWinner(squares) || squares[i]) {
-        // if there's a winner then return
-        // if squares[i] is not null or undefined then return
-        return;
-    }
-    squares[i] = this.state.xIsNext? 'X': 'O';
-    this.setState({
-        squares: squares,
-        xIsNext: !this.state.xIsNext,
-     });
-  }
 
   render() {
     return (
@@ -67,6 +54,24 @@ class Game extends React.Component {
         }],
         xIsNext: true;
     }
+  }
+
+handleClick(i) {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+        // if there's a winner then return
+        // if squares[i] is not null or undefined then return
+        return;
+    }
+    squares[i] = this.state.xIsNext? 'X': 'O';
+    this.setState({
+        history: history.concat([{ //does not mutate original array
+            squares: squares,
+        }]),
+        xIsNext: !this.state.xIsNext,
+     });
   }
 
 
