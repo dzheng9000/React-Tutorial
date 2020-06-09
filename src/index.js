@@ -2,18 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //import './index.css';
 // To remember things, Components use states
-class Square extends React.Component {
-// add a constructor to initialize the state
-  render() {
+
+
+function Square(props) {
     return (
-      <button
-        className="square"
-        onClick={() => this.props.onClick()}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+        <button className="square" onClick={props.onClick}>
+            {props.value}
+        </button>
+        );
 }
 
 class Board extends React.Component {
@@ -31,7 +27,7 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice();
+    const squares = this.state.squares.slice(); // create a copy
     squares[i] = 'O'
     this.setState({squares: squares});
   }
