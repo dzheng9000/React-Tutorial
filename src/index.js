@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import './index.css';
+import './index.css';
 // To remember things, Components use states
 
 
@@ -51,6 +51,7 @@ class Game extends React.Component {
         }],
         stepNumber: 0,
         xIsNext: true,
+        selected: null
     }
   }
 
@@ -77,6 +78,7 @@ jumpTo(step) {
     this.setState({
         stepNumber: step,
         xIsNext: (step % 2) === 0,
+        selected: step
     });
 }
 
@@ -89,9 +91,10 @@ jumpTo(step) {
         const desc = move ?
         'Go to move #' + move : // if there's a move go to that move
         'Go to game start'; // otherwise go to game start since game is over
+
         return (
             <li key={move}>
-                <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                <button onClick={() => this.jumpTo(move)} style={{'fontWeight': this.state.selected === move ? 'bold' : 'normal'}} >{desc}</button>
             </li>
         );
     });
